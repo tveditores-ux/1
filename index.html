@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDA: Etapa de Equipo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-dark: #1B5E20;
+            --primary-light: #4CAF50;
+            --accent: #8BC34A;
+            --text: #333333;
+            --text-light: #666666;
+            --background: #f8f9fa;
+            --card: #ffffff;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 60px 20px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .app-logo {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 20px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .app-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .app-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 10px;
+            color: var(--text-light);
+            font-size: 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* Content Sections */
+        .section {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        /* Bible Verse */
+        .bible-verse {
+            background-color: rgba(46, 125, 50, 0.05);
+            border-left: 4px solid var(--primary-light);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .verse-text {
+            font-style: italic;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .verse-ref {
+            font-size: 14px;
+            color: var(--text-light);
+            text-align: right;
+        }
+
+        /* Activity Box */
+        .activity-box {
+            background-color: rgba(76, 175, 80, 0.05);
+            border: 1px solid var(--primary-light);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        /* Prayer */
+        .prayer {
+            background-color: rgba(27, 94, 32, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            font-style: italic;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        /* Input Areas */
+        .input-area {
+            background-color: #f9f9f9;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 80px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(46, 125, 50, 0.1);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style-type: none;
+        }
+
+        .checklist li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .checklist li.checked:before {
+            content: "☑";
+            color: var(--primary-light);
+        }
+
+        /* Progress */
+        .progress-section {
+            padding: 20px;
+        }
+
+        .progress-card {
+            background-color: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .progress-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .week-progress {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .week-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+
+        .week-circle.active {
+            background-color: var(--primary-light);
+        }
+
+        .week-circle.completed {
+            background-color: var(--primary);
+        }
+
+        /* Resources */
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--card);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(46, 125, 50, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Week Content */
+        .week-content {
+            display: none;
+        }
+
+        .week-content.active {
+            display: block;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 5px;
+            background-color: white;
+            color: var(--text-light);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            body {
+                max-width: 500px;
+                margin: 0 auto;
+                box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                min-height: 100vh;
+                position: relative;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="app-logo">VIDA</div>
+        <h1 class="app-title">Etapa de Equipo</h1>
+        <p class="app-subtitle">Edificando el Reino</p>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-home"></i> ¡Bienvenido!</h2>
+            <p>Esta aplicación te guiará a través de un proceso de 4 semanas para edificar el Reino de Dios en equipo.</p>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-compass"></i> Tu Progreso Actual</h2>
+            <div class="week-progress">
+                <div class="week-circle active">1</div>
+                <div class="week-circle">2</div>
+                <div class="week-circle">3</div>
+                <div class="week-circle">4</div>
+            </div>
+            <p>Estás en la <strong>Semana 1: VER</strong> de 4 semanas</p>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-tasks"></i> Tareas Pendientes</h2>
+            <ul class="checklist">
+                <li class="checked">Completar dinámica "Ojos que ven"</li>
+                <li class="checked">Leer Mateo 9:36 y Juan 4:35</li>
+                <li>Participar en diálogo grupal</li>
+                <li>Realizar actividad práctica de compasión</li>
+                <li>Compartir testimonio</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-calendar-day"></i> Reflexión del Día</h2>
+            <div class="input-area">
+                <p><strong>Pregunta:</strong> ¿A quién me está llamando Dios a mirar con compasión hoy?</p>
+                <textarea placeholder="Escribe tu reflexión aquí..." style="width: 100%; height: 80px; border: none; background: transparent; resize: none;"></textarea>
+            </div>
+            <button class="btn"><i class="fas fa-save"></i> Guardar Reflexión</button>
+        </div>
+    </section>
+
+    <!-- Weeks Section -->
+    <section id="weeks" class="section">
+        <div class="tab-nav">
+            <div class="tab active" data-week="1">Semana 1</div>
+            <div class="tab" data-week="2">Semana 2</div>
+            <div class="tab" data-week="3">Semana 3</div>
+            <div class="tab" data-week="4">Semana 4</div>
+        </div>
+
+        <!-- Week 1 Content -->
+        <div id="week1" class="week-content active">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-eye"></i> VER: La Compasión que Mueve</h2>
+                <p><strong>Texto base:</strong> Mateo 9:36 / Juan 4:35</p>
+                
+                <div class="bible-verse">
+                    <div class="verse-text">"Al ver las multitudes, tuvo compasión de ellas porque estaban confundidas y desamparadas, como ovejas sin pastor."</div>
+                    <div class="verse-ref">Mateo 9:36 (NTV)</div>
+                </div>
+
+                <div class="activity-box">
+                    <h3><i class="fas fa-users"></i> Dinámica: "Ojos que ven"</h3>
+                    <p>Escribe tres personas cercanas que aún no conocen al Señor. Luego, en parejas, oren por cada nombre.</p>
+                </div>
+
+                <h3><i class="fas fa-comments"></i> Diálogo Grupal</h3>
+                <p><strong>1. ¿Qué vemos cuando miramos a quienes no conocen a Cristo?</strong></p>
+                <div class="input-area">Escribe tus reflexiones aquí...</div>
+
+                <p><strong>2. ¿Quiénes son las personas en tu entorno que necesitan conocer a Jesús?</strong></p>
+                <div class="input-area">Escribe tus reflexiones aquí...</div>
+
+                <p><strong>3. ¿Qué pasos prácticos podemos dar como equipo para acercarnos a las personas con amor?</strong></p>
+                <div class="input-area">Escribe tus reflexiones aquí...</div>
+
+                <div class="prayer">
+                    <i class="fas fa-pray"></i><br>
+                    "Señor Jesús, gracias porque cuando miras, lo haces con compasión. Enséñame a ver a los demás como Tú los ves, a sentir lo que Tú sientes y a actuar movido por Tu amor. Que nuestro equipo sea un reflejo de Tu corazón y sirva con ternura, paciencia y fe. Amén."
+                </div>
+
+                <h3><i class="fas fa-hands-helping"></i> Actividad Práctica</h3>
+                <p>Identifica a alguien del grupo o comunidad que esté pasando por un momento difícil y realiza una de estas acciones:</p>
+                <ul class="checklist">
+                    <li>Escucha activa: dedica tiempo a oír sin juzgar</li>
+                    <li>Oración compartida: ora con esa persona por su necesidad</li>
+                    <li>Acto de servicio: ayuda en una tarea práctica</li>
+                    <li>Mensaje de ánimo: envía una nota o versículo</li>
+                </ul>
+
+                <button class="btn"><i class="fas fa-check-circle"></i> Marcar Semana como Completada</button>
+            </div>
+        </div>
+
+        <!-- Week 2 Content -->
+        <div id="week2" class="week-content">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-pray"></i> INTERCEDER: Junto a Cristo</h2>
+                <p><strong>Texto base:</strong> Efesios 2:6 / Hebreos 4:16</p>
+                
+                <div class="bible-verse">
+                    <div class="verse-text">"Y en unión con Cristo Jesús, Dios nos resucitó y nos hizo sentar con Él en las regiones celestiales."</div>
+                    <div class="verse-ref">Efesios 2:6 (NVI)</div>
+                </div>
+
+                <div class="activity-box">
+                    <h3><i class="fas fa-envelope"></i> Dinámica: "Cartas al Cielo"</h3>
+                    <p>Escribe una carta breve al Padre, expresando gratitud y pidiendo por alguien que deseas ver cerca de Jesús.</p>
+                </div>
+
+                <button class="btn"><i class="fas fa-play-circle"></i> Comenzar Semana 2</button>
+            </div>
+        </div>
+
+        <!-- Week 3 Content -->
+        <div id="week3" class="week-content">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-heart"></i> DAR: El Amor que se Entrega</h2>
+                <p><strong>Texto base:</strong> Gálatas 2:20 / 2 Corintios 5:14</p>
+                
+                <div class="bible-verse">
+                    <div class="verse-text">"Con Cristo he sido crucificado, y ya no vivo yo, sino que Cristo vive en mí."</div>
+                    <div class="verse-ref">Gálatas 2:20</div>
+                </div>
+
+                <button class="btn"><i class="fas fa-play-circle"></i> Comenzar Semana 3</button>
+            </div>
+        </div>
+
+        <!-- Week 4 Content -->
+        <div id="week4" class="week-content">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-hands"></i> ACEPTAR: Acompañar nuevos comienzos</h2>
+                <p><strong>Texto base:</strong> Mateo 28:18-20 / Juan 1:12</p>
+                
+                <div class="bible-verse">
+                    <div class="verse-text">"Pero a todos los que lo recibieron, a los que creen en su nombre, les dio el derecho de ser hijos de Dios."</div>
+                    <div class="verse-ref">Juan 1:12</div>
+                </div>
+
+                <button class="btn"><i class="fas fa-play-circle"></i> Comenzar Semana 4</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress" class="section">
+        <div class="progress-card">
+            <h2 class="progress-title">Tu Progreso</h2>
+            <div class="week-progress">
+                <div class="week-circle completed">1</div>
+                <div class="week-circle active">2</div>
+                <div class="week-circle">3</div>
+                <div class="week-circle">4</div>
+            </div>
+            <p>Has completado <strong>1 de 4</strong> semanas</p>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-check-circle"></i> Actividades Completadas</h2>
+            <ul class="checklist">
+                <li class="checked">Dinámica "Ojos que ven"</li>
+                <li class="checked">Lectura bíblica Mateo 9:36</li>
+                <li class="checked">Lectura bíblica Juan 4:35</li>
+                <li class="checked">Tiempo de diálogo grupal</li>
+                <li>Actividad práctica de compasión</li>
+                <li>Compartir testimonio</li>
+                <li>Oración de compromiso</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-award"></i> Logros</h2>
+            <div class="resource-item">
+                <div class="resource-icon"><i class="fas fa-eye"></i></div>
+                <div>
+                    <h3>Ojos Compasivos</h3>
+                    <p>Completaste la primera semana de VER</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-sticky-note"></i> Mis Reflexiones</h2>
+            <div class="input-area">
+                <p><strong>Reflexión 1:</strong> Hoy sentí compasión por mi compañero de trabajo que está pasando por un divorcio...</p>
+                <p><em>Guardado: 15 Nov 2023</em></p>
+            </div>
+            <button class="btn-outline"><i class="fas fa-plus"></i> Agregar Nueva Reflexión</button>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="section">
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-toolbox"></i> Recursos Adicionales</h2>
+            
+            <div class="resource-item">
+                <div class="resource-icon"><i class="fas fa-book"></i></div>
+                <div>
+                    <h3>Guía del Facilitador</h3>
+                    <p>Recursos para liderar el grupo eficazmente</p>
+                </div>
+            </div>
+
+            <div class="resource-item">
+                <div class="resource-icon"><i class="fas fa-headphones"></i></div>
+                <div>
+                    <h3>Audios de Reflexión</h3>
+                    <p>Meditaciones para cada semana</p>
+                </div>
+            </div>
+
+            <div class="resource-item">
+                <div class="resource-icon"><i class="fas fa-file-download"></i></div>
+                <div>
+                    <h3>Material Descargable</h3>
+                    <p>Hojas de trabajo y actividades</p>
+                </div>
+            </div>
+
+            <div class="resource-item">
+                <div class="resource-icon"><i class="fas fa-users"></i></div>
+                <div>
+                    <h3>Conexión Grupal</h3>
+                    <p>Comparte experiencias con tu equipo</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-calendar-alt"></i> Próxima Reunión</h2>
+            <p><strong>Lugar:</strong> Salón Principal Iglesia</p>
+            <p><strong>Fecha y Hora:</strong> Sábado 25 Nov, 4:00 PM</p>
+            <p><strong>Tema:</strong> Semana 2: INTERCEDER - Junto a Cristo</p>
+            <button class="btn"><i class="fas fa-bell"></i> Recordarme</button>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-share-alt"></i> Compartir</h2>
+            <p>Invita a otros a unirse al grupo VIDA</p>
+            <button class="btn-outline"><i class="fas fa-user-plus"></i> Invitar Amigos</button>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" data-target="home">
+            <i class="fas fa-home nav-icon"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="#" class="nav-item" data-target="weeks">
+            <i class="fas fa-book-open nav-icon"></i>
+            <span>Semanas</span>
+        </a>
+        <a href="#" class="nav-item" data-target="progress">
+            <i class="fas fa-chart-line nav-icon"></i>
+            <span>Progreso</span>
+        </a>
+        <a href="#" class="nav-item" data-target="resources">
+            <i class="fas fa-toolbox nav-icon"></i>
+            <span>Recursos</span>
+        </a>
+    </nav>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // Add active class to clicked nav item
+                this.classList.add('active');
+                
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Week tabs functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all week contents
+                document.querySelectorAll('.week-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Show target week content
+                const weekId = this.getAttribute('data-week');
+                document.getElementById('week' + weekId).classList.add('active');
+            });
+        });
+
+        // Checklist functionality
+        document.querySelectorAll('.checklist li').forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('checked');
+            });
+        });
+
+        // Week progress circles
+        document.querySelectorAll('.week-circle').forEach(circle => {
+            circle.addEventListener('click', function() {
+                const weekNumber = this.textContent;
+                alert('Navegando a la Semana ' + weekNumber);
+                
+                // Switch to weeks section
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                    if(nav.getAttribute('data-target') === 'weeks') {
+                        nav.classList.add('active');
+                    }
+                });
+                
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById('weeks').classList.add('active');
+                
+                // Activate corresponding week tab
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    if(tab.getAttribute('data-week') === weekNumber) {
+                        tab.classList.add('active');
+                    }
+                });
+                
+                document.querySelectorAll('.week-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById('week' + weekNumber).classList.add('active');
+            });
+        });
+
+        // Simulate loading saved data
+        window.addEventListener('load', function() {
+            // In a real app, this would load from localStorage or a backend
+            console.log('Aplicación VIDA cargada correctamente');
+        });
+    </script>
+</body>
+</html>
